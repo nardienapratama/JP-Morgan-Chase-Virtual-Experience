@@ -1,0 +1,122 @@
+From f7e73653340f587549e6576b4aca233b5c0e745b Mon Sep 17 00:00:00 2001
+From: Nardiena Althafia Pratama <nardienapratama@yahoo.com>
+Date: Fri, 24 Jul 2020 21:31:26 +1000
+Subject: [PATCH] Create Patch File
+
+---
+ 0001-Create-Patch-File.patch | 83 ++++++++++++++++++++++++++++++++++++
+ client_test.py               |  8 ++++
+ 2 files changed, 91 insertions(+)
+ create mode 100644 0001-Create-Patch-File.patch
+
+diff --git a/0001-Create-Patch-File.patch b/0001-Create-Patch-File.patch
+new file mode 100644
+index 0000000..c86dc8f
+--- /dev/null
++++ b/0001-Create-Patch-File.patch
+@@ -0,0 +1,83 @@
++From 353207f3fc8471a1a9637b74e8c85abe565e33cf Mon Sep 17 00:00:00 2001
++From: Nardiena Althafia Pratama <nardienapratama@yahoo.com>
++Date: Fri, 24 Jul 2020 21:20:33 +1000
++Subject: [PATCH] Create Patch File
++
++---
++ 0001-Create-Patch-File.patch | 64 ------------------------------------
++ 1 file changed, 64 deletions(-)
++ delete mode 100644 0001-Create-Patch-File.patch
++
++diff --git a/0001-Create-Patch-File.patch b/0001-Create-Patch-File.patch
++deleted file mode 100644
++index 3467f27..0000000
++--- a/0001-Create-Patch-File.patch
+++++ /dev/null
++@@ -1,64 +0,0 @@
++-From c22f563d4c4c5dff1065775d5a27b70194141d24 Mon Sep 17 00:00:00 2001
++-From: Nardiena Althafia Pratama <nardienapratama@yahoo.com>
++-Date: Fri, 24 Jul 2020 20:37:37 +1000
++-Subject: [PATCH] Create Patch File
++-
++----
++- client3.py                            | 10 +++++++---
++- jpm-virtual-internship.code-workspace |  8 ++++++++
++- 2 files changed, 15 insertions(+), 3 deletions(-)
++- create mode 100644 jpm-virtual-internship.code-workspace
++-
++-diff --git a/client3.py b/client3.py
++-index f1771c3..6b7070b 100644
++---- a/client3.py
++-+++ b/client3.py
++-@@ -35,14 +35,16 @@ def getDataPoint(quote):
++- 	stock = quote['stock']
++- 	bid_price = float(quote['top_bid']['price'])
++- 	ask_price = float(quote['top_ask']['price'])
++--	price = bid_price
++-+	price = (bid_price + ask_price)/2
++- 	return stock, bid_price, ask_price, price
++- 
++- def getRatio(price_a, price_b):
++- 	""" Get ratio of price_a and price_b """
++- 	""" ------------- Update this function ------------- """
++- 	""" Also create some unit tests for this function in client_test.py """
++--	return 1
++-+	if (price_b == 0):
++-+    		# when price_b is 0 avoid throwing ZeroDivisionError
++-+	return price_a/price_b
++- 
++- # Main
++- if __name__ == "__main__":
++-@@ -52,8 +54,10 @@ if __name__ == "__main__":
++- 		quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
++- 
++- 		""" ----------- Update to get the ratio --------------- """
++-+		prices = {}
++- 		for quote in quotes:
++- 			stock, bid_price, ask_price, price = getDataPoint(quote)
++-+			prices[stock] = price
++- 			print ("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
++- 
++--		print ("Ratio %s" % getRatio(price, price))
++-+		print ("Ratio %s" % getRatio(prices['ABC'], prices['DEF']))
++-diff --git a/jpm-virtual-internship.code-workspace b/jpm-virtual-internship.code-workspace
++-new file mode 100644
++-index 0000000..876a149
++---- /dev/null
++-+++ b/jpm-virtual-internship.code-workspace
++-@@ -0,0 +1,8 @@
++-+{
++-+	"folders": [
++-+		{
++-+			"path": "."
++-+		}
++-+	],
++-+	"settings": {}
++-+}
++-\ No newline at end of file
++--- 
++-2.27.0.windows.1
++-
++-- 
++2.27.0.windows.1
++
+diff --git a/client_test.py b/client_test.py
+index a11a532..169b5d1 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -53,6 +53,14 @@ class ClientTest(unittest.TestCase):
+ 		]
+ 		for price in prices:
+ 			self.assertIsNone(getRatio(price[0], price[1]))
++	
++	def test_getRatio_calculateRatio_AEqualToB(self):
++		prices = [
++			[117.87, 117.87],
++			[106.06, 106.06]
++		]
++		for price in prices:
++			self.assertEqual(getRatio(price[0], price[1]), 1)
+ 
+ if __name__ == '__main__':
+ 		unittest.main()
+-- 
+2.27.0.windows.1
+
